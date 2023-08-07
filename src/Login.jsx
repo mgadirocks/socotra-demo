@@ -75,7 +75,6 @@ const Login = (props) => {
               id="hostname"
               label="Host Name"
               name="hostname"
-              defaultValue={"epandian-trigent"}
               autoFocus
             />
             <TextField
