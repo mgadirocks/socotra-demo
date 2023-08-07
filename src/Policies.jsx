@@ -68,19 +68,19 @@ const Policies = (props) => {
         return date1;
       },
     },
-    {
-      field: "status",
-      headerName: "Status",
-      width: 200,
-      valueGetter: (params) => {
-        if (!params.row.status) {
-          return "-";
-        }
-        // Convert the decimal value to a percentage
-        const productName = params.row.status;
-        return productName;
-      },
-    },
+    // {
+    //   field: "status",
+    //   headerName: "Status",
+    //   width: 200,
+    //   valueGetter: (params) => {
+    //     if (!params.row.status) {
+    //       return "-";
+    //     }
+    //     // Convert the decimal value to a percentage
+    //     const productName = params.row.status;
+    //     return productName;
+    //   },
+    // },
   ];
 
   return (
