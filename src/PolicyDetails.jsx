@@ -13,6 +13,21 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+const getPaymentScheduleName = (policyDetails) => {
+  if (!policyDetails) {
+    return "Not Available";
+  }
+
+  if (policyDetails?.paymentScheduleName?.includes("monthly")) {
+    return "Monthly";
+  }
+
+  if (policyDetails?.paymentScheduleName?.includes("full")) {
+    return "Full Payment";
+  }
+  return policyDetails?.paymentScheduleName;
+};
+
 const PolicyDetails = (props) => {
   const handleViewMore = () => {
     window.open(
@@ -20,6 +35,7 @@ const PolicyDetails = (props) => {
       "_blank"
     );
   };
+
   return (
     <div>
       {props.policyDetails?.productName && (
@@ -54,7 +70,8 @@ const PolicyDetails = (props) => {
             </Grid>
             <Grid item xs={6}>
               <Item>
-                Product Name : {props?.policyDetails?.paymentScheduleName}
+                Payment Schedule Name :{" "}
+                {getPaymentScheduleName(props?.policyDetails)}
               </Item>
             </Grid>
             <Grid item xs={6}>
