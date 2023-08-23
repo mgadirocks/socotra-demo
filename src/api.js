@@ -99,3 +99,50 @@ export const getPolicyDetailsByPolicyId = async (policyId) => {
     const data = await response.json();
     return data;
 };
+
+export const getAllPolicyHolders = async () => {
+    const response = await fetch(
+        `https://api.sandbox.socotra.com/policyholders`,
+        {
+            headers: {
+                Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+                "Content-Type": "application/json",
+            },
+        }
+    );
+
+    const data = await response.json();
+    return data?.policyholders;
+}
+
+export const getPoliciesByPolicyholderIds = async (policyholderIds) => {
+    if (!policyholderIds) {
+        return
+    }
+
+    // for each policyholderId, fetch the policies and use Promise.allSettled to get the results
+    const fetchPolicyPromises = policyholderIds?.map(async (id) => {
+        try {
+            const response = await fetch(
+                `https://api.sandbox.socotra.com/policyholder/${id}/policies`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            const data = await response.json();
+            return { status: 'fulfilled', value: { policies: data } };
+        } catch (error) {
+            return { status: 'rejected', reason: { id, error } };
+        }
+    });
+
+    const settledPromises = await Promise.allSettled(fetchPolicyPromises);
+    // Initialize an empty object to store the results.
+    const result = settledPromises.filter(p => p.status === 'fulfilled')?.map(p => p.value.value.policies)?.flat() ?? [];
+
+    return result;
+}

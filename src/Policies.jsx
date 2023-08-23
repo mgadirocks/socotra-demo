@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { getPolicyDetailsByPolicyId } from "./api";
+import React from "react";
 import moment from "moment";
-import { Button, TextField, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
@@ -68,19 +67,14 @@ const Policies = (props) => {
         return date1;
       },
     },
-    // {
-    //   field: "status",
-    //   headerName: "Status",
-    //   width: 200,
-    //   valueGetter: (params) => {
-    //     if (!params.row.status) {
-    //       return "-";
-    //     }
-    //     // Convert the decimal value to a percentage
-    //     const productName = params.row.status;
-    //     return productName;
-    //   },
-    // },
+    {
+      field: "status",
+      headerName: "Status",
+      width: 200,
+      valueGetter: (params) => {
+        console.log(params.row);
+      },
+    },
   ];
 
   return (

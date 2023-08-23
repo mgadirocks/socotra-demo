@@ -22,6 +22,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import Policies from "./Policies";
 import { formatPolicyHolderName } from "./utils.js";
 import PolicyDetails from "./PolicyDetails";
+import PoliciesForPolicyHolders from "./PoliciesForPolicyHolders";
 
 function Policy() {
   const [policyDetails, setPolicyDetails] = useState();
@@ -68,16 +69,16 @@ function Policy() {
   };
 
   const handlePolicyDetailsClick = async (e, policyId) => {
-    debugger;
     e.preventDefault();
-    const policyDetails = await getPolicyDetailsByPolicyId(policyId);
-    setPolicyDetails(policyDetails);
+    const policyDetailz = await getPolicyDetailsByPolicyId(policyId);
+    setPolicyDetails(policyDetailz);
   };
 
   return (
     <div style={{ margin: "30px" }}>
+      <PoliciesForPolicyHolders />
       {!isUserLoggedIn && <Login onLogin={handleLoginClick} />}
-      {isUserLoggedIn && (
+      {/*{isUserLoggedIn && (
         <div>
           <div>
             <section>
@@ -136,7 +137,7 @@ function Policy() {
             <PolicyDetails policyDetails={policyDetails} />
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
